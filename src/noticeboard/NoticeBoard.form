@@ -16,70 +16,47 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="logoMenu" min="-2" pref="230" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-          <Component id="sp" alignment="0" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="logoMenu" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="sp" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jScrollPane1" alignment="0" pref="351" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="sp">
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="panelMenu">
+        <Container class="javax.swing.JPanel" name="panel">
           <Properties>
-            <Property name="opaque" type="boolean" value="false"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
           </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                      <Component id="logoutbtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="103" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="329" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="355" max="32767" attributes="0"/>
-                      <Component id="logoutbtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="351" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
-          <SubComponents>
-            <Component class="swing.Button" name="logoutbtn">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="logout"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutbtnActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
         </Container>
       </SubComponents>
     </Container>
-    <Component class="komponen.LogoProfil" name="logoMenu">
-    </Component>
   </SubComponents>
 </Form>
