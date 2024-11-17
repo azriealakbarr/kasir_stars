@@ -39,7 +39,7 @@ public class PanelCover_Login extends javax.swing.JPanel {
 
     private void init() {
         title = new JLabel();
-        title.setIcon(new ImageIcon(getClass().getResource("/icon/y (2).png")));
+        title.setIcon(new ImageIcon(getClass().getResource("/icon/logo.png")));
         add(title);
         desc = new JLabel("To keep connected with us please");
         desc.setForeground(new Color(245, 245, 245));
