@@ -8,9 +8,9 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
-public class button_login_outline extends JButton {
+public class button_outline_login extends JButton {
 
-    public button_login_outline() {
+    public button_outline_login() {
         setContentAreaFilled(false);
         setBorder(new EmptyBorder(5, 0, 5, 0));
         setBackground(Color.WHITE);
