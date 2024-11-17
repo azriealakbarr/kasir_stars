@@ -125,12 +125,12 @@ public class PanelCover_Login extends javax.swing.JPanel {
     public void login(boolean login) {
         if (this.isLogin != login) {
             if (login) {
-                title.setIcon(new ImageIcon(getClass().getResource("/icon/y (2).png")));
+                title.setIcon(new ImageIcon(getClass().getResource("/icon/logo.png")));
                 desc.setText("HI, WELCOME!");
                 desc1.setText("Create Account First!");
                 button.setText("REGISTER");
             } else {
-                title.setIcon(new ImageIcon(getClass().getResource("/icon/y (2).png")));
+                title.setIcon(new ImageIcon(getClass().getResource("/icon/logo.png")));
                 desc.setText("HI! WELCOME BACK!");
                 desc1.setText("Already Have Account?");
                 button.setText("SIGN IN");
