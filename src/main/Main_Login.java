@@ -13,7 +13,7 @@ import komponen.Message;
 import komponen.PanelCover_Login;
 import komponen.PanelLoading;
 import komponen.PanelLoginRegister;
-import main.MainHome;
+import main.Main_Home;
 import model.ModelLogin_User;
 import model.ModelLogin_Login;
 import model.ModelLogin_Message;
@@ -159,7 +159,7 @@ public class Main_Login extends javax.swing.JFrame {
         ModelLogin_User user_id = service.login_User(data);
         if (user_id != null) {
             this.dispose(); // Tutup jendela Main_Login
-            MainHome main = new MainHome(); // Membuat instance dari Main
+            Main_Home main = new Main_Home(); // Membuat instance dari Main
             main.setVisible(true); // Membuka jendela Main
         } else {
             showMessage(Message.Messagetype.ERROR, "Username atau Password Salah");
