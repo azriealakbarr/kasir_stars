@@ -25,7 +25,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="icon" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="search" pref="592" max="32767" attributes="0"/>
+              <Component id="search" pref="616" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -40,9 +40,6 @@
     <Component class="javax.swing.JLabel" name="icon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icon/search.png"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="swing.Search" name="search">

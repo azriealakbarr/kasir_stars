@@ -21,7 +21,6 @@ public class Header extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search.png"))); // NOI18N
 
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -37,7 +36,7 @@ public class Header extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(icon)
                 .addGap(18, 18, 18)
-                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
+                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
