@@ -78,20 +78,20 @@ public class Card extends javax.swing.JPanel {
                     .addComponent(lbValues)
                     .addComponent(lbTitle)
                     .addComponent(lbIcon))
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(14, 14, 14)
                 .addComponent(lbIcon)
-                .addGap(18, 18, 18)
-                .addComponent(lbTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTitle)
+                .addGap(12, 12, 12)
                 .addComponent(lbValues)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbDescription)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

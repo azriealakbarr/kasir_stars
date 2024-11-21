@@ -1,9 +1,10 @@
 package main;
 
 import event.EventMenuSelected;
-import form.Form_1;
-import form.Form_2;
-import form.Form_3;
+import form.Form_Laporan;
+import form.Form_Produk;
+import form.Form_Penjualan;
+import form.Form_Pembelian;
 import form.Form_Dashboard;
 import java.awt.Color;
 import javax.swing.JComponent;
@@ -11,32 +12,52 @@ import javax.swing.JComponent;
 public class Main_Home extends javax.swing.JFrame {
 
     private Form_Dashboard home;
-    private Form_1 form1;
-    private Form_2 form2;
-    private Form_3 form3;
+    private Form_Laporan form4;
+    private Form_Produk form1;
+    private Form_Penjualan form2;
+    private Form_Pembelian form3;
 
     public Main_Home() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         home = new Form_Dashboard();
-        form1 = new Form_1();
-        form2 = new Form_2();
-        form3 = new Form_3();
+        form1 = new Form_Produk();
+        form2 = new Form_Penjualan();
+        form3 = new Form_Pembelian();
+        form4 = new Form_Laporan();
         menu.initMoving(Main_Home.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
-            @Override
-            public void selected(int index) {
-                if (index == 0) {
-                    setForm(home);
-                } else if (index == 1) {
-                    setForm(form1);
-                } else if (index == 2) {
-                    setForm(form2);
-                } else if (index == 3) {
-                    setForm(form3);
-                }
+    @Override
+    public void selected(int index) {
+        System.out.println("Index selected: " + index); // Debug log
+        if (index == 0) {
+            setForm(home);
+        } else if (index == 1) {
+            setForm(form1);
+        } else if (index == 2) {
+            setForm(form2);
+        } else if (index == 3) {
+            setForm(form3);
+        } else if (index == 4) {
+            setForm(form4);
+        } else if (index == 7) { // Ubah angka 7 sesuai dengan indeks menu logout yang muncul
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                    Main_Home.this, 
+                    "Apakah Anda yakin ingin logout?",
+                    "Konfirmasi Logout",
+                    javax.swing.JOptionPane.YES_NO_OPTION
+            );
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                Main_Login login = new Main_Login();
+                login.setVisible(true);
+                dispose();
+            } else {
+                setForm(home);
             }
+        }
+    }
         });
+
         //  set when system open start with home form
         setForm(new Form_Dashboard());
     }
@@ -66,6 +87,8 @@ public class Main_Home extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1170, 657));
 
+        header1.setMinimumSize(new java.awt.Dimension(88, 26));
+
         panelMenu.setLayout(new java.awt.BorderLayout());
 
         menu.setMinimumSize(new java.awt.Dimension(162, 482));
@@ -79,12 +102,12 @@ public class Main_Home extends javax.swing.JFrame {
                 .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
                     .addGroup(panelBorderLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))))
+                        .addContainerGap())))
         );
         panelBorderLayout.setVerticalGroup(
-            panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(panelBorderLayout.createSequentialGroup()
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

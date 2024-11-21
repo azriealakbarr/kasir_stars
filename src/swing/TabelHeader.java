@@ -14,7 +14,7 @@ public class TabelHeader extends JLabel {
         setBackground(Color.WHITE);
         setFont(new Font("sansserif", 1, 12));
         setForeground(new Color(102, 102, 102));
-        setBorder(new EmptyBorder(10, 5, 10, 5));
+        setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     @Override

@@ -39,7 +39,7 @@ public class MenuItem extends javax.swing.JPanel {
 
         lbName = new javax.swing.JLabel();
 
-        lbName.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lbName.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lbName.setForeground(new java.awt.Color(255, 255, 255));
         lbName.setText("Menu Name");
 
@@ -50,7 +50,7 @@ public class MenuItem extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lbName)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

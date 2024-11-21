@@ -1,8 +1,8 @@
 package form;
 
-public class Form_2 extends javax.swing.JPanel {
+public class Form_Pembelian extends javax.swing.JPanel {
 
-    public Form_2() {
+    public Form_Pembelian() {
         initComponents();
     }
 
@@ -17,7 +17,7 @@ public class Form_2 extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(106, 106, 106));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Form 2");
+        jLabel1.setText("Form 3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

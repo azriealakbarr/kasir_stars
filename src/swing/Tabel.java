@@ -13,7 +13,7 @@ public class Tabel extends JTable {
     public Tabel() {
         setShowHorizontalLines(true);
         setGridColor(new Color(230, 230, 230));
-        setRowHeight(40);
+        setRowHeight(10);
         getTableHeader().setReorderingAllowed(false);
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override

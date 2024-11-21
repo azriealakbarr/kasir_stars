@@ -15,6 +15,7 @@ public class Search extends JTextField {
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setSelectionColor(new Color(220, 204, 182));
     }
+    private final String hint = "";
 
     @Override
     public void paint(Graphics g) {
@@ -29,6 +30,7 @@ public class Search extends JTextField {
             int m = 0xfefefefe;
             int c2 = ((c0 & m) >>> 1) + ((c1 & m) >>> 1);
             g.setColor(new Color(c2, true));
+            g.drawString(hint, ins.left, h / 2 + fm.getAscent() / 2 - 2);
         }
     }
 }
