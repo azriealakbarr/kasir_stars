@@ -8,20 +8,16 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import javax.swing.JLayeredPane;
-import javax.swing.Timer;
 import komponen.Message;
 import komponen.PanelCover_Login;
 import komponen.PanelLoading;
 import komponen.PanelLoginRegister;
-import main.Main_Home;
 import model.ModelLogin_User;
 import model.ModelLogin_Login;
-import model.ModelLogin_Message;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
-import service.ServiceLogin_Mail;
 import service.ServiceLogin_User;
 
 public class Main_Login extends javax.swing.JFrame {

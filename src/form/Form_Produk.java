@@ -1,43 +1,45 @@
 package form;
 
+import db.db_connection;
+import java.awt.HeadlessException;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Form_Produk extends javax.swing.JPanel {
 
-private DefaultTableModel tableModel;
+    private DefaultTableModel tableModel;
 
     public Form_Produk() {
         initComponents();
         initializeTable(); // Inisialisasi tabel
-        
-        tbl_produk.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            int selectedRow = tbl_produk.getSelectedRow(); // Mendapatkan indeks baris yang diklik
-            if (selectedRow != -1) { // Pastikan ada baris yang dipilih
-                // Ambil nilai dari baris yang dipilih dan masukkan ke text field
-                tf_kode.setText(tbl_produk.getValueAt(selectedRow, 0).toString());
-                tf_nama.setText(tbl_produk.getValueAt(selectedRow, 1).toString());
-                tf_jenis.setText(tbl_produk.getValueAt(selectedRow, 2).toString());
-                tf_hBeli.setText(tbl_produk.getValueAt(selectedRow, 3).toString());
-                tf_hJual.setText(tbl_produk.getValueAt(selectedRow, 4).toString());
 
-                // Atur tombol (disable tambah, enable edit dan hapus)
-                btnTambah.setEnabled(false);
-                btnEdit.setEnabled(true);
-                btnHapus.setEnabled(true);
+        tbl_produk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int selectedRow = tbl_produk.getSelectedRow(); // Mendapatkan indeks baris yang diklik
+                if (selectedRow != -1) { // Pastikan ada baris yang dipilih
+                    // Ambil nilai dari baris yang dipilih dan masukkan ke text field
+                    tf_kode.setText(tbl_produk.getValueAt(selectedRow, 0).toString());
+                    tf_nama.setText(tbl_produk.getValueAt(selectedRow, 1).toString());
+                    tf_jenis.setText(tbl_produk.getValueAt(selectedRow, 2).toString());
+                    tf_hBeli.setText(tbl_produk.getValueAt(selectedRow, 3).toString());
+                    tf_hJual.setText(tbl_produk.getValueAt(selectedRow, 4).toString());
+
+                    // Atur tombol (disable tambah, enable edit dan hapus)
+                    btnTambah.setEnabled(false);
+                    btnEdit.setEnabled(true);
+                    btnHapus.setEnabled(true);
+                }
             }
-        }
-    });
+        });
     }
 
     private void initializeTable() {
         // Mengatur model tabel
-        String[] columnNames = {"Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(new String[]{"Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual"}, 0);
         tbl_produk.setModel(tableModel);
     }
-    
+
     private void clearForm() {
         // Membersihkan form input
         tf_kode.setText("");
@@ -46,7 +48,7 @@ private DefaultTableModel tableModel;
         tf_hBeli.setText("");
         tf_hJual.setText("");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -95,43 +97,43 @@ private DefaultTableModel tableModel;
 
         tbl_produk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual"
+                "Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual", "Stok"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -139,6 +141,10 @@ private DefaultTableModel tableModel;
             }
         });
         jScrollPane1.setViewportView(tbl_produk);
+        if (tbl_produk.getColumnModel().getColumnCount() > 0) {
+            tbl_produk.getColumnModel().getColumn(5).setResizable(false);
+            tbl_produk.getColumnModel().getColumn(5).setPreferredWidth(10);
+        }
 
         tf_kode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tf_kode.setForeground(new java.awt.Color(0, 0, 0));
@@ -212,38 +218,42 @@ private DefaultTableModel tableModel;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lb_kode)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_kode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_nama)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lb_hBeli, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lb_jenis)))
-                        .addGap(18, 18, 18)
+                        .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tf_hBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lb_hJual)
+                                .addComponent(lb_kode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_kode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lb_nama)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lb_hBeli, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lb_jenis)))
                                 .addGap(18, 18, 18)
-                                .addComponent(tf_hJual, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tf_jenis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tf_hBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lb_hJual)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tf_hJual, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tf_jenis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tf_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 235, Short.MAX_VALUE))
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,19 +310,24 @@ private DefaultTableModel tableModel;
             return;
         }
 
+        String sqlEdit = "UPDATE produk (product_code, product_name, category, price_purchase, price_sales, stock) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             double hargaB = Double.parseDouble(hargaBText); // Validasi harga\
             double hargaJ = Double.parseDouble(hargaJText); // Validasi harga\
+
             tableModel.setValueAt(kode, selectedRow, 0);
             tableModel.setValueAt(nama, selectedRow, 1);
             tableModel.setValueAt(jenis, selectedRow, 2);
             tableModel.setValueAt(hargaB, selectedRow, 3);
             tableModel.setValueAt(hargaJ, selectedRow, 4);
+
             JOptionPane.showMessageDialog(this, "Data berhasil diedit!");
             clearForm();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Harga harus berupa angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
+
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -329,6 +344,7 @@ private DefaultTableModel tableModel;
             JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
             clearForm();
         }
+
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tf_kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_kodeActionPerformed
@@ -344,7 +360,7 @@ private DefaultTableModel tableModel;
     }//GEN-LAST:event_tf_hBeliActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // Menambah data ke tabel
+        // Mengambil data dari form input
         String kode = tf_kode.getText().trim();
         String nama = tf_nama.getText().trim();
         String jenis = tf_jenis.getText().trim();
@@ -358,15 +374,39 @@ private DefaultTableModel tableModel;
         }
 
         try {
-            double hargaB = Double.parseDouble(hargaBText); // Validasi harga
-            double hargaJ = Double.parseDouble(hargaJText); // Validasi harga
-            Object[] rowData = {kode, nama, jenis, hargaB, hargaJ};
-            tableModel.addRow(rowData); // Tambah data ke tabel
-            JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
+            double hargaB = Double.parseDouble(hargaBText); // Validasi harga beli
+            double hargaJ = Double.parseDouble(hargaJText); // Validasi harga jual
+
+            // Query untuk menambahkan data ke database
+            String sqlTambah = "INSERT INTO produk (product_code, product_name, category, price_purchase, price_sales, stock) VALUES (?, ?, ?, ?, ?, ?)";
+            try (Connection koneksi = db_connection.getInstance().getConnection(); PreparedStatement pst = koneksi.prepareStatement(sqlTambah)) {
+
+                pst.setString(1, kode);       // Mengisi kolom product_code
+                pst.setString(2, nama);       // Mengisi kolom product_name
+                pst.setString(3, jenis);      // Mengisi kolom category
+                pst.setDouble(4, hargaB);     // Mengisi kolom price_purchase
+                pst.setDouble(5, hargaJ);     // Mengisi kolom price_sales
+                pst.setInt(6, 0);             // Stok awal = 0 (default)
+
+                pst.executeUpdate(); // Eksekusi query SQL
+                JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan ke database!");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error saat menyimpan data ke database: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Tambahkan data ke tabel GUI
+            Object[] rowData = {kode, nama, jenis, hargaB, hargaJ, 0}; // Tambahkan stok awal 0
+            tableModel.addRow(rowData);
+
+            // Bersihkan form input
             clearForm();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Harga harus berupa angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
+
+
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void tf_jenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_jenisActionPerformed
@@ -376,7 +416,7 @@ private DefaultTableModel tableModel;
     private void tf_hJualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_hJualActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_hJualActionPerformed
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.button_login btnEdit;
