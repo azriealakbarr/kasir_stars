@@ -292,58 +292,11 @@ public class Form_Produk extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectedRow = tbl_produk.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang ingin diedit!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        String kode = tf_kode.getText().trim();
-        String nama = tf_nama.getText().trim();
-        String jenis = tf_jenis.getText().trim();
-        String hargaBText = tf_hBeli.getText().trim();
-        String hargaJText = tf_hJual.getText().trim();
-
-        // Validasi input
-        if (kode.isEmpty() || nama.isEmpty() || jenis.isEmpty() || hargaBText.isEmpty() || hargaJText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        String sqlEdit = "UPDATE produk (product_code, product_name, category, price_purchase, price_sales, stock) VALUES (?, ?, ?, ?, ?, ?)";
-        try {
-            double hargaB = Double.parseDouble(hargaBText); // Validasi harga\
-            double hargaJ = Double.parseDouble(hargaJText); // Validasi harga\
-
-            tableModel.setValueAt(kode, selectedRow, 0);
-            tableModel.setValueAt(nama, selectedRow, 1);
-            tableModel.setValueAt(jenis, selectedRow, 2);
-            tableModel.setValueAt(hargaB, selectedRow, 3);
-            tableModel.setValueAt(hargaJ, selectedRow, 4);
-
-            JOptionPane.showMessageDialog(this, "Data berhasil diedit!");
-            clearForm();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Harga harus berupa angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        }
-
-
+       
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // Menghapus data dari tabel
-        int selectedRow = tbl_produk.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-        if (confirmation == JOptionPane.YES_OPTION) {
-            tableModel.removeRow(selectedRow);
-            JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
-            clearForm();
-        }
+        
 
     }//GEN-LAST:event_btnHapusActionPerformed
 
