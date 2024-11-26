@@ -20,7 +20,7 @@ public class db_connection {
         
     }
     public void connectDatabase() throws SQLException {
-        String url = "jdbc:mysql://localhost:3307/kasirgrosir";
+        String url = "jdbc:mysql://localhost:3306/kasirgrosir";
         String user = "root";
         String pass = "";
         connection = java.sql.DriverManager.getConnection(url,user,pass);
