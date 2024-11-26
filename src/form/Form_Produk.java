@@ -38,6 +38,40 @@ public class Form_Produk extends javax.swing.JPanel {
         // Mengatur model tabel
         tableModel = new DefaultTableModel(new String[]{"Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual"}, 0);
         tbl_produk.setModel(tableModel);
+        loadTableData();
+    }
+
+    private void loadTableData() {
+        try {
+            // Hapus semua data dari model tabel
+            DefaultTableModel model = (DefaultTableModel) tbl_produk.getModel();
+            model.setRowCount(0);
+
+            // Ambil data dari database
+            Connection conn = db_connection.getInstance().getConnection();
+            String query = "SELECT * FROM produk";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            // Masukkan data baru ke model tabel
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("product_code"),
+                    rs.getString("product_name"),
+                    rs.getString("category"),
+                    rs.getDouble("price_purchase"),
+                    rs.getDouble("price_sales"),
+                };
+                model.addRow(row);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }
 
     private void clearForm() {
@@ -48,6 +82,8 @@ public class Form_Produk extends javax.swing.JPanel {
         tf_hBeli.setText("");
         tf_hJual.setText("");
     }
+
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -292,11 +328,47 @@ public class Form_Produk extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-       
+        String kode = tf_kode.getText();
+        String nama = tf_nama.getText();
+        String jenis = tf_jenis.getText();
+        String hBeli = tf_hBeli.getText();
+        String hJual = tf_hJual.getText();
+
+        Connection conn = db_connection.getInstance().getConnection();
+        String query = "UPDATE produk SET product_name=?, category=?, price_purchase=?, price_sales=? WHERE product_code=?";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, nama);
+            ps.setString(2, jenis);
+            ps.setFloat(3, Float.parseFloat(hBeli));
+            ps.setFloat(4, Float.parseFloat(hJual));
+            ps.setString(5, kode);
+
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Produk berhasil diperbarui.");
+            loadTableData(); // Refresh data di tabel
+            clearForm(); // Bersihkan input
+        } catch (SQLException | HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui produk: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        
+        String kode = tf_kode.getText();
+
+        Connection conn = db_connection.getInstance().getConnection();
+        String query = "DELETE FROM produk WHERE product_code=?";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, kode);
+
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Produk berhasil dihapus.");
+            loadTableData(); // Refresh data di tabel
+            clearForm(); // Bersihkan input
+        } catch (SQLException | HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal menghapus produk: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnHapusActionPerformed
 
@@ -313,50 +385,28 @@ public class Form_Produk extends javax.swing.JPanel {
     }//GEN-LAST:event_tf_hBeliActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // Mengambil data dari form input
-        String kode = tf_kode.getText().trim();
-        String nama = tf_nama.getText().trim();
-        String jenis = tf_jenis.getText().trim();
-        String hargaBText = tf_hBeli.getText().trim();
-        String hargaJText = tf_hJual.getText().trim();
+        String kode = tf_kode.getText();
+        String nama = tf_nama.getText();
+        String jenis = tf_jenis.getText();
+        String hBeli = tf_hBeli.getText();
+        String hJual = tf_hJual.getText();
 
-        // Validasi input
-        if (kode.isEmpty() || nama.isEmpty() || jenis.isEmpty() || hargaBText.isEmpty() || hargaJText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        Connection conn = db_connection.getInstance().getConnection();
+        String query = "INSERT INTO produk (product_code, product_name, category, price_purchase, price_sales) VALUES (?, ?, ?, ?, ?)";
 
-        try {
-            double hargaB = Double.parseDouble(hargaBText); // Validasi harga beli
-            double hargaJ = Double.parseDouble(hargaJText); // Validasi harga jual
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, kode);
+            ps.setString(2, nama);
+            ps.setString(3, jenis);
+            ps.setFloat(4, Float.parseFloat(hBeli));
+            ps.setFloat(5, Float.parseFloat(hJual));
 
-            // Query untuk menambahkan data ke database
-            String sqlTambah = "INSERT INTO produk (product_code, product_name, category, price_purchase, price_sales, stock) VALUES (?, ?, ?, ?, ?, ?)";
-            try (Connection koneksi = db_connection.getInstance().getConnection(); PreparedStatement pst = koneksi.prepareStatement(sqlTambah)) {
-
-                pst.setString(1, kode);       // Mengisi kolom product_code
-                pst.setString(2, nama);       // Mengisi kolom product_name
-                pst.setString(3, jenis);      // Mengisi kolom category
-                pst.setDouble(4, hargaB);     // Mengisi kolom price_purchase
-                pst.setDouble(5, hargaJ);     // Mengisi kolom price_sales
-                pst.setInt(6, 0);             // Stok awal = 0 (default)
-
-                pst.executeUpdate(); // Eksekusi query SQL
-                JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan ke database!");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error saat menyimpan data ke database: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Tambahkan data ke tabel GUI
-            Object[] rowData = {kode, nama, jenis, hargaB, hargaJ, 0}; // Tambahkan stok awal 0
-            tableModel.addRow(rowData);
-
-            // Bersihkan form input
-            clearForm();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Harga harus berupa angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Produk berhasil ditambahkan.");
+            loadTableData(); // Refresh data di tabel
+            clearForm(); // Bersihkan input
+        } catch (SQLException | HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal menambahkan produk: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 
