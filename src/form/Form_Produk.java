@@ -60,8 +60,7 @@ public class Form_Produk extends javax.swing.JPanel {
                     rs.getString("product_name"),
                     rs.getString("category"),
                     rs.getDouble("price_purchase"),
-                    rs.getDouble("price_sales"),
-                };
+                    rs.getDouble("price_sales"),};
                 model.addRow(row);
             }
 
@@ -83,29 +82,25 @@ public class Form_Produk extends javax.swing.JPanel {
         tf_hJual.setText("");
     }
 
-   
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnTambah = new swing.button_login();
-        btnEdit = new swing.button_login();
-        btnHapus = new swing.button_login();
+        btnTambah = new swing.Button();
+        btnEdit = new swing.Button();
+        btnHapus = new swing.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_produk = new javax.swing.JTable();
-        tf_kode = new swing.mytext_field_login();
-        tf_nama = new swing.mytext_field_login();
-        tf_jenis = new swing.mytext_field_login();
-        tf_hBeli = new swing.mytext_field_login();
-        tf_hJual = new swing.mytext_field_login();
+        tf_kode = new swing.TextField();
+        tf_nama = new swing.TextField();
+        tf_jenis = new swing.TextField();
+        tf_hBeli = new swing.TextField();
+        tf_hJual = new swing.TextField();
         lb_kode = new javax.swing.JLabel();
         lb_jenis = new javax.swing.JLabel();
         lb_nama = new javax.swing.JLabel();
         lb_hBeli = new javax.swing.JLabel();
         lb_hJual = new javax.swing.JLabel();
-
-        setBackground(new java.awt.Color(242, 242, 242));
 
         btnTambah.setBackground(new java.awt.Color(153, 255, 0));
         btnTambah.setLabel("Tambah");
@@ -283,12 +278,10 @@ public class Form_Produk extends javax.swing.JPanel {
                                     .addComponent(tf_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 235, Short.MAX_VALUE))
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 235, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -408,8 +401,6 @@ public class Form_Produk extends javax.swing.JPanel {
         } catch (SQLException | HeadlessException ex) {
             JOptionPane.showMessageDialog(this, "Gagal menambahkan produk: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void tf_jenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_jenisActionPerformed
@@ -422,9 +413,9 @@ public class Form_Produk extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.button_login btnEdit;
-    private swing.button_login btnHapus;
-    private swing.button_login btnTambah;
+    private swing.Button btnEdit;
+    private swing.Button btnHapus;
+    private swing.Button btnTambah;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_hBeli;
     private javax.swing.JLabel lb_hJual;
@@ -432,10 +423,10 @@ public class Form_Produk extends javax.swing.JPanel {
     private javax.swing.JLabel lb_kode;
     private javax.swing.JLabel lb_nama;
     private javax.swing.JTable tbl_produk;
-    private swing.mytext_field_login tf_hBeli;
-    private swing.mytext_field_login tf_hJual;
-    private swing.mytext_field_login tf_jenis;
-    private swing.mytext_field_login tf_kode;
-    private swing.mytext_field_login tf_nama;
+    private swing.TextField tf_hBeli;
+    private swing.TextField tf_hJual;
+    private swing.TextField tf_jenis;
+    private swing.TextField tf_kode;
+    private swing.TextField tf_nama;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,7 @@ import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
-import swing.button_outline_login;
+import swing.Button_Outline;
 
 public class PanelCover_Login extends javax.swing.JPanel {
 
@@ -23,7 +23,7 @@ public class PanelCover_Login extends javax.swing.JPanel {
     private JLabel title;
     private JLabel desc;
     private JLabel desc1;
-    private button_outline_login button;
+    private Button_Outline button;
     private boolean isLogin;
     private Object add;
 
@@ -47,7 +47,7 @@ public class PanelCover_Login extends javax.swing.JPanel {
         desc1 = new JLabel("login with your personal info");
         desc1.setForeground(new Color(245, 245, 245));
         add(desc1);
-        button = new button_outline_login();
+        button = new Button_Outline();
         button.setBackground(new Color(255, 255, 255));
         button.setForeground(new Color(255, 255, 255));
         button.setText("SIGN IN");

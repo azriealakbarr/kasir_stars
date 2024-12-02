@@ -16,7 +16,7 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
-public class button_login extends JButton {
+public class Button extends JButton {
 
     public Color getEffectColor() {
         return effectColor;
@@ -33,7 +33,7 @@ public class button_login extends JButton {
     private float alpha;
     private Color effectColor = new Color(255, 255, 255);
 
-    public button_login() {
+    public Button() {
         setContentAreaFilled(false);
         setBorder(new EmptyBorder(5, 0, 5, 0));
         setBackground(Color.WHITE);
