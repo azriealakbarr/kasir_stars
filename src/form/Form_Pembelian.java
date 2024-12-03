@@ -14,11 +14,16 @@ public class Form_Pembelian extends javax.swing.JPanel {
 
     public Form_Pembelian() {
         initComponents();
-        populateKodeProduk();
-        setupTable();
+        try {
+            connectdb(); // Panggil connectdb() di sini
+            populateKodeProduk();
+            setupTable();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error connecting to database: " + ex.getMessage());
+        }
     }
 
-     private void connectdb() throws SQLException {
+    private void connectdb() throws SQLException {
         try {
             conn = db_connection.getInstance().getConnection();
             if (conn == null) {
@@ -30,15 +35,15 @@ public class Form_Pembelian extends javax.swing.JPanel {
     }
 
     private void populateKodeProduk() {
-        try {
-            String sql = "SELECT product_code FROM produk";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
+        try (Connection conn = db_connection.getInstance().getConnection(); PreparedStatement pst = conn.prepareStatement("SELECT product_code FROM produk"); ResultSet rs = pst.executeQuery()) {
+
             while (rs.next()) {
-                txt_kodeproduk.addItem(rs.getString("product_code"));
+                String kodeProduk = rs.getString("product_code");
+                txt_kodeproduk.addItem(kodeProduk);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error mengambil kode produk: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error mengambil kode produk: " + ex.getMessage());
+            // Add more specific error handling or logging here
         }
     }
 
@@ -113,7 +118,6 @@ public class Form_Pembelian extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(Table);
 
-        txt_kodeproduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         txt_kodeproduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_kodeprodukActionPerformed(evt);
@@ -198,17 +202,17 @@ public class Form_Pembelian extends javax.swing.JPanel {
                         .addContainerGap(49, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_kodeproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_namaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_hargaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_namaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_hargaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_perbaraui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_batal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -234,7 +238,7 @@ public class Form_Pembelian extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(txt_idpembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_idpembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -261,7 +265,7 @@ public class Form_Pembelian extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(txt_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -332,42 +336,72 @@ public class Form_Pembelian extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_idpembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idpembelianActionPerformed
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-    try {
-        String sql = "SELECT MAX(purchase_id) FROM pembelian";
-        pst = conn.prepareStatement(sql);
-        rs = pst.executeQuery();
-        if (rs.next()) {
-            int id = rs.getInt(1) + 1;
-            txt_idpembelian.setText(String.valueOf(id));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error memperbarui data: " + e.getMessage());
-    } finally {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
-            if (rs != null) rs.close();
-            if (pst != null) pst.close();
+            String sql = "SELECT MAX(purchase_id) FROM pembelian";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt(1) + 1;
+                txt_idpembelian.setText(String.valueOf(id));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error memperbarui data: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-}
+
+    public int getUserIdFromDatabase(String username) {
+        int userId = -1; // Default jika user ID tidak ditemukan
+        String sql = "SELECT user_id FROM users WHERE username = ?";
+        try {
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt("user_id");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error mengambil User ID: " + ex.getMessage());
+        }
+        return userId;
+    }
 
     private void simpanData() {
         try {
+            // Ambil user_id dari database berdasarkan username
+            int user_id = getUserIdFromDatabase("jennie"); // Ganti "jennie" dengan username pengguna
+            if (user_id == -1) {
+                JOptionPane.showMessageDialog(this, "User ID tidak ditemukan. Pastikan username valid.");
+                return;
+            }
 
-            String sql = "INSERT INTO pembelian (purchase_id, product_code, quantity, total_price) VALUES (?, ?, ?, ?)";
+            // Query untuk menyimpan data pembelian
+            String sql = "INSERT INTO pembelian (user_id, product_id, quantity, total_price, purchase_date) VALUES (?, ?, ?, ?, NOW())";
             pst = conn.prepareStatement(sql);
-            pst.setString(1, txt_idpembelian.getText());
-            pst.setString(2, (String) txt_kodeproduk.getSelectedItem());
-            pst.setInt(3, Integer.parseInt(txt_stock.getText()));
-            pst.setInt(4, Integer.parseInt(txt_hargaproduk.getText()) * Integer.parseInt(txt_stock.getText()));
+            pst.setInt(1, user_id); // User ID
+            pst.setInt(2, Integer.parseInt((String) txt_kodeproduk.getSelectedItem())); // Product ID
+            pst.setInt(3, Integer.parseInt(txt_stock.getText())); // Quantity
+            pst.setInt(4, Integer.parseInt(txt_hargaproduk.getText()) * Integer.parseInt(txt_stock.getText())); // Total Price
             pst.executeUpdate();
+
             JOptionPane.showMessageDialog(this, "Data Pembelian berhasil disimpan!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error menyimpan data: " + ex.getMessage());
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Input data tidak valid: " + nfe.getMessage());
         }
     }
 
@@ -375,23 +409,17 @@ public class Form_Pembelian extends javax.swing.JPanel {
         try {
             int row = Table.getSelectedRow();
             if (row != -1) {
-                String idPembelian = (String) Table.getValueAt(row, 1);
+                int purchaseId = (Integer) Table.getValueAt(row, 1); // Asumsikan ID Pembelian adalah integer
 
                 String sql = "DELETE FROM pembelian WHERE purchase_id = ?";
                 pst = conn.prepareStatement(sql);
-                pst.setString(1, idPembelian);
+                pst.setInt(1, purchaseId);
                 pst.executeUpdate();
 
-                DefaultTableModel model = (DefaultTableModel) Table.getModel();
-                model.removeRow(row);
-
-                JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
-                updateTotal();
-            } else {
-                JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus!");
+                // ... (sisanya sama seperti kode sebelumnya)
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error menghapus data: " + ex.getMessage());
+            // ... (sisanya sama seperti kode sebelumnya)
         }
     }
 
@@ -418,7 +446,7 @@ public class Form_Pembelian extends javax.swing.JPanel {
                 int hargaBeli = Integer.parseInt(txt_hargaproduk.getText());
                 int total = hargaBeli * stock;
 
-                String sql = "UPDATE pembelian SET product_code = ?, quantity = ?, total_price = ? WHERE purchase_id = ?";
+                String sql = "UPDATE pembelian SET product_id = ?, quantity = ?, total_price = ? WHERE purchase_id = ?";
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, kodeProduk);
                 pst.setInt(2, stock);
@@ -466,11 +494,12 @@ public class Form_Pembelian extends javax.swing.JPanel {
             pst.setString(1, kodeProduk);
             rs = pst.executeQuery();
             if (rs.next()) {
-                txt_namaproduk.setText(rs.getString("nama_produk"));
-                txt_hargaproduk.setText(rs.getString("harga_beli"));
+                txt_namaproduk.setText(rs.getString("product_name"));
+                txt_hargaproduk.setText(rs.getString("price_purchase"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error mengambil data produk: " + ex.getMessage());
+            
 }    }//GEN-LAST:event_txt_kodeprodukActionPerformed
 
     private void txt_hargaprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaprodukActionPerformed

@@ -132,7 +132,7 @@ public class Main_Login extends javax.swing.JFrame {
                 service.insertUser(user_id);
                 showMessage(Message.Messagetype.SUCCESS, "Register Sukses");
                 
-                new javax.swing.Timer(1500, new ActionListener() {
+                new javax.swing.Timer(1000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     loading.setVisible(false); // Menyembunyikan loading

@@ -156,21 +156,21 @@
                           <EmptySpace pref="49" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txt_kodeproduk" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="txt_namaproduk" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="txt_stock" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="txt_hargaproduk" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="txt_namaproduk" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txt_stock" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txt_hargaproduk" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="184" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txt_perbaraui" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_batal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_hapus" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -230,12 +230,7 @@
         <Component class="javax.swing.JComboBox" name="txt_kodeproduk">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
@@ -319,7 +314,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Component id="txt_idpembelian" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="txt_idpembelian" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -364,7 +359,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Component id="txt_supplier" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="txt_supplier" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
