@@ -3,6 +3,7 @@ package swing;
 import event.EventMenuSelected;
 import model.Model_Menu;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -34,7 +35,7 @@ public class MenuList<E extends Object> extends JList<E> {
                     Object o = model.getElementAt(index);
                     if (o instanceof Model_Menu) {
                         Model_Menu menu = (Model_Menu) o;
-                        if (menu.getType() == Model_Menu.MenuType.MENU) {
+                        if (menu.getType() == Model_Menu.MenuType.MENU || menu.getType() == Model_Menu.MenuType.SUBMENU) {
                             selectedIndex = index;
                             if (event != null) {
                                 event.selected(index);
@@ -82,14 +83,21 @@ public class MenuList<E extends Object> extends JList<E> {
                 if (o instanceof Model_Menu) {
                     data = (Model_Menu) o;
                 } else {
-                    data = new Model_Menu( o + "", Model_Menu.MenuType.EMPTY);
+                    data = new Model_Menu(o + "", Model_Menu.MenuType.EMPTY);
                 }
                 MenuItem item = new MenuItem(data);
                 item.setSelected(selectedIndex == index);
                 item.setOver(overIndex == index);
+
+                // Customize appearance based on menu type
+                if (data.getType() == Model_Menu.MenuType.SUBMENU) {
+                    item.setFont(item.getFont().deriveFont(Font.ITALIC)); // Example: italicize submenu
+                } else {
+                    item.setFont(item.getFont().deriveFont(Font.PLAIN)); // Regular font for other types
+                }
+
                 return item;
             }
-
         };
     }
 

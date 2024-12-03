@@ -32,6 +32,6 @@ public class Model_Menu {
     private MenuType type;
 
     public static enum MenuType {
-        TITLE, MENU, EMPTY
+        TITLE, MENU, EMPTY, SUBMENU
     }
 }

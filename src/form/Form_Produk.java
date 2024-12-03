@@ -36,7 +36,7 @@ public class Form_Produk extends javax.swing.JPanel {
 
     private void initializeTable() {
         // Mengatur model tabel
-        tableModel = new DefaultTableModel(new String[]{"Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual"}, 0);
+        tableModel = new DefaultTableModel(new String[]{"Kode Produk", "Nama", "Jenis", "Harga Beli", "Harga Jual", "Stok"}, 0);
         tbl_produk.setModel(tableModel);
         loadTableData();
     }
@@ -60,7 +60,9 @@ public class Form_Produk extends javax.swing.JPanel {
                     rs.getString("product_name"),
                     rs.getString("category"),
                     rs.getDouble("price_purchase"),
-                    rs.getDouble("price_sales"),};
+                    rs.getDouble("price_sales"),
+                    rs.getInt("stock")
+                };
                 model.addRow(row);
             }
 
