@@ -120,26 +120,7 @@ public class Main_Login extends javax.swing.JFrame {
         });
         
     }
-    
-    private void Id(){
-        ModelLogin_Login data = loginRegister.getDataLogin();
-        String user = data.getUsername();
-        String pass = data.getPassword();
-        String sql = "SELECT user_id from users WHERE username = '"+user+"' AND password = '"
-                + pass + "'";
-        try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            if (rs.next()) {
-                int noAkun = rs.getInt("user_id");
-                PenggunaLogin.Login = noAkun;
-            }
-        } catch (SQLException e) {
-            showMessage(Message.Messagetype.ERROR, "Gagal Mengambil User_Id");
-        }
-    }
-    
- 
+  
     
     private void register(){
         ModelLogin_Register user_id = loginRegister.getUser_id();

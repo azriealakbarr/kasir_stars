@@ -2,29 +2,125 @@ package form;
 
 import model.Model_Card;
 import java.awt.Color;
+import java.sql.*;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import swing.Chart_Model;
+import model.ModelChart_Value;
 
 public class Form_Dashboard extends javax.swing.JPanel {
 
+    DashboardData dashboardData = new DashboardData();
+    ModelChart_Value data = new ModelChart_Value(); // Ganti dengan ModelChart_Value
+    private final Connection conn = db.db_connection.connect();
+
     public Form_Dashboard() {
         initComponents();
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/stock.png")), "Total Penjualan", "Rp 1.714.286"));
-        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/profit.png")), "Total Pembelian", "Rp 714.286"));
-        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/flag.png")), "Total Keuntungan", "Rp 2.000.000"));
+        updateDashboardData();
+        new Timer(5000, e -> updateDashboardData()).start();
 
         chart.start();
         chart.addLegend("Pembelian", new Color(245, 189, 135));
         chart.addLegend("Penjualan", new Color(135, 189, 245));
         chart.addLegend("Keuntungan", new Color(189, 135, 245));
-        chart.addData(new Chart_Model("January", new double[]{500, 200, 80, 89}));
-        chart.addData(new Chart_Model("February", new double[]{600, 750, 90, 150}));
-        chart.addData(new Chart_Model("March", new double[]{200, 350, 460, 900}));
-        chart.addData(new Chart_Model("April", new double[]{480, 150, 750, 700}));
-        chart.addData(new Chart_Model("May", new double[]{350, 540, 300, 150}));
-        chart.addData(new Chart_Model("June", new double[]{190, 280, 81, 200}));
+
+        // Mulai dengan menampilkan data chart yang dinamis
+        updateChartData();
+    }
+
+    public class DashboardData {
+        
+        public DashboardData() {
+        }
+
+        public ModelChart_Value getDashboardData() {
+            ModelChart_Value data = new ModelChart_Value();
+
+            try {
+                // Ambil total pembelian
+                String sqlPem = "SELECT SUM(total_price) FROM pembelian"; // Sesuaikan dengan query yang tepat
+                PreparedStatement stmtPembelian = conn.prepareStatement(sqlPem);
+                ResultSet rsPembelian = stmtPembelian.executeQuery();
+                if (rsPembelian.next()) {
+                    data.setTotalpem(rsPembelian.getDouble(1));
+                    System.out.println("Total Pembelian: " + data.getTotalpem());
+                }
+
+                // Ambil total penjualan
+                String sqlPen = "SELECT SUM(total_price) FROM sales"; // Sesuaikan dengan query yang tepat
+                PreparedStatement stmtPenjualan = conn.prepareStatement(sqlPen);
+                ResultSet rsPenjualan = stmtPenjualan.executeQuery();
+                if (rsPenjualan.next()) {
+                    data.setTotalpen(rsPenjualan.getDouble(1));
+                    System.out.println("Total Penjualan: " + data.getTotalpen());
+                }
+
+                // Hitung keuntungan
+                data.setKeuntungan(data.getTotalpen() - data.getTotalpem());
+                System.out.println("Keuntungan: " + data.getKeuntungan());
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return data;
+        }
+    }
+
+    private void updateDashboardData() {
+        DashboardData dashboardData = new DashboardData();
+        data = dashboardData.getDashboardData();
+
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/stock.png")), "Total Penjualan", "Rp " + data.getTotalpen()));
+        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/profit.png")), "Total Pembelian", "Rp " + data.getTotalpem()));
+        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/flag.png")), "Total Keuntungan", "Rp " + data.getKeuntungan()));
+    }
+
+    // Update chart dengan data yang didapatkan dari database
+    private void updateChartData() {
+        chart.clear();
+
+        // Ambil data dari database dan tambahkan ke chart
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        double[] penjualanData = new double[12];
+        double[] pembelianData = new double[12];
+        double[] keuntunganData = new double[12];
+
+        try {
+            // Ambil data chart untuk setiap bulan
+            for (int i = 0; i < months.length; i++) {
+                String month = months[i];
+
+                // Ambil data pembelian dan penjualan per bulan
+                String sql = "SELECT SUM(total_price) FROM sales WHERE MONTH(date) = ?"; // Sesuaikan query dengan bulan
+                PreparedStatement stmtPenjualan = conn.prepareStatement(sql);
+                stmtPenjualan.setInt(1, i + 1);  // Set bulan
+                ResultSet rsPenjualan = stmtPenjualan.executeQuery();
+                if (rsPenjualan.next()) {
+                    penjualanData[i] = rsPenjualan.getDouble(1);
+                }
+
+                sql = "SELECT SUM(total_price) FROM pembelian WHERE MONTH(date) = ?"; // Sesuaikan query dengan bulan
+                PreparedStatement stmtPembelian = conn.prepareStatement(sql);
+                stmtPembelian.setInt(1, i + 1);  // Set bulan
+                ResultSet rsPembelian = stmtPembelian.executeQuery();
+                if (rsPembelian.next()) {
+                    pembelianData[i] = rsPembelian.getDouble(1);
+                }
+
+                keuntunganData[i] = penjualanData[i] - pembelianData[i];
+            }
+
+            // Menambahkan data ke chart
+            for (int i = 0; i < months.length; i++) {
+                chart.addData(new Chart_Model(months[i], new double[]{penjualanData[i], pembelianData[i], keuntunganData[i]}));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        chart.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -113,14 +209,7 @@ public class Form_Dashboard extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        chart.clear();
-        chart.addData(new Chart_Model("January", new double[]{500, 200, 80, 89}));
-        chart.addData(new Chart_Model("February", new double[]{600, 750, 90, 150}));
-        chart.addData(new Chart_Model("March", new double[]{200, 350, 460, 900}));
-        chart.addData(new Chart_Model("April", new double[]{480, 150, 750, 700}));
-        chart.addData(new Chart_Model("May", new double[]{350, 540, 300, 150}));
-        chart.addData(new Chart_Model("June", new double[]{190, 280, 81, 200}));
-        chart.start();
+        updateChartData();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
 

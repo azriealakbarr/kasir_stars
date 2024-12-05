@@ -2,6 +2,7 @@ package main;
 
 import event.EventMenuSelected;
 import form.Form_Produk;
+import form.Form_Pembelian1;
 import form.Form_Penjualan;
 import form.Form_Dashboard;
 import form.Form_Laporan;
@@ -13,6 +14,7 @@ public class Main_Home extends javax.swing.JFrame {
     private Form_Dashboard home;
     private Form_Produk formPr;
     private Form_Penjualan formPn;
+    private Form_Pembelian1 formPm;
     private Form_Laporan formLp;
 
     public Main_Home() {
@@ -21,11 +23,12 @@ public class Main_Home extends javax.swing.JFrame {
         home = new Form_Dashboard();
         formPr = new Form_Produk();
         formPn = new Form_Penjualan();
+        formPm = new Form_Pembelian1();
         formLp = new Form_Laporan();
         menu.initMoving(Main_Home.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
-                        public void selected(int index) {
+            public void selected(int index) {
                 System.out.println("Index selected: " + index); // Debug log
                 if (index == 0) {
                     setForm(home);
@@ -36,6 +39,9 @@ public class Main_Home extends javax.swing.JFrame {
                 } else if (index == 2) {
                     setForm(formPn);
                     headerHome.setMenuName("  Penjualan");
+                } else if (index == 3) {
+                    setForm(formPm);
+                    headerHome.setMenuName("  Pembelian");
                 } else if (index == 4) {
                     setForm(formLp);
                     headerHome.setMenuName("  Laporan");

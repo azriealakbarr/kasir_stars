@@ -15,7 +15,6 @@ public class Form_Penjualan extends javax.swing.JPanel {
     private DefaultTableModel model;
     private boolean isSaving = false;
     private Connection conn = db.db_connection.connect();
-    private int akun = PenggunaLogin.Login;
 
     public Form_Penjualan() {
         initComponents();
@@ -175,8 +174,8 @@ public class Form_Penjualan extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,9 +196,9 @@ public class Form_Penjualan extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
@@ -229,12 +228,12 @@ public class Form_Penjualan extends javax.swing.JPanel {
                                             .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(15, 15, 15))))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(kodeT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,7 +256,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -268,9 +267,9 @@ public class Form_Penjualan extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tf_Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(ttl_Bayar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ttl_Bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -288,46 +287,66 @@ public class Form_Penjualan extends javax.swing.JPanel {
         double hrg = Double.parseDouble(harga);
         double total = hrg * jumlah;
         String tanggal = cbDate.getText();
-        int productId = 0; 
-
+        int productId = 0;
         try {
-            // Query SQL
             String sqlSelect = "SELECT product_id FROM produk ORDER BY product_id LIMIT 1";
-            PreparedStatement pstSelect = conn.prepareStatement(sqlSelect); // Buat PreparedStatement dan eksekusi query
-            ResultSet rs = pstSelect.executeQuery(); // Ambil hasil query
+            PreparedStatement pstSelect = conn.prepareStatement(sqlSelect);
+            ResultSet rs = pstSelect.executeQuery();
             if (rs.next()) {
-                productId = rs.getInt("product_id"); // Pastikan product_id ada di tabel produk
+                productId = rs.getInt("product_id");
             }
             System.out.println("Product ID: " + productId); // Debug: Tampilkan product_id untuk memastikan
-
         } catch (SQLException e) {
             e.printStackTrace(); // Debug jika ada error
         }
 
-        String sql = "INSERT INTO sales (user_id, product_id, quantity, total_price, sales_date) VALUES (?, ?, ?, ?, CURRENT_DATE)";
-        try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setInt(1, akun);
-            pst.setInt(2, productId);
-            pst.setInt(3, jumlah);
-            pst.setDouble(4, total);
+        try {
+            // Mulai transaksi
+            conn.setAutoCommit(false); // Matikan auto-commit untuk kontrol transaksi manual
 
-            int rowsAffected = pst.executeUpdate();
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Berhasil ditambahkan");
-            } else {
-                JOptionPane.showMessageDialog(this, "Gagal Menyimpan Data!");
+            // Query untuk memasukkan data ke pembelian
+            String insertPembelian = "INSERT INTO sales (user_id, product_id, quantity, total_price, sales_date) "
+                    + "VALUES (?, ?, ?, ?, CURRENT_DATE)";
+            try (PreparedStatement pstInsert = conn.prepareStatement(insertPembelian)) {
+                pstInsert.setInt(1, 1); // user_id
+                pstInsert.setInt(2, productId); // product_id
+                pstInsert.setInt(3, jumlah); // quantity
+                pstInsert.setDouble(4, total); // total_price
+                pstInsert.executeUpdate();
             }
+
+            // Query untuk memperbarui stok produk
+            String updateStok = "UPDATE produk SET stock = stock - ? WHERE product_id = ?";
+            try (PreparedStatement pstUpdate = conn.prepareStatement(updateStok)) {
+                pstUpdate.setInt(1, jumlah); // jumlah yang ingin ditambahkan
+                pstUpdate.setInt(2, productId); // product_id
+                pstUpdate.executeUpdate();
+            }
+
+            // Commit transaksi jika tidak ada error
+            conn.commit();
+            JOptionPane.showMessageDialog(this, "Berhasil ditambahkan");
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal terhubung ke database :" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback(); // Rollback transaksi jika terjadi error
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace(); // Jika rollback gagal
+            }
+            JOptionPane.showMessageDialog(this, "Gagal terhubung ke database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // Debug jika ada error
         } finally {
-            isSaving = false;
+            try {
+                conn.setAutoCommit(true); // Kembali ke auto-commit setelah transaksi selesai
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         if (!kodeP.getText().isEmpty() && !namaP.getText().isEmpty() && !jmlP.getText().isEmpty() && !hargaP.getText().isEmpty()) {
-
+            // Menambahkan data ke table jika form valid
             model = (DefaultTableModel) tblJual.getModel();
             model.addRow(new Object[]{idTransaksi, tanggal, kodeProduk, namaProduk, jumlah, harga});
-
             clearForm();
         } else {
             JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Warning", JOptionPane.WARNING_MESSAGE);
