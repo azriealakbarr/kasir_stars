@@ -1,27 +1,22 @@
 package main;
 
+import user.PenggunaLogin;
 import db.db_connection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
+import java.sql.*;
+import java.awt.event.*;
+import java.text.*;
 import java.util.Locale;
-import javax.swing.JLayeredPane;
-import javax.swing.Timer;
+import javax.swing.*;
 import komponen.Message;
 import komponen.PanelCover_Login;
 import komponen.PanelLoading;
 import komponen.PanelLoginRegister;
 import main.Main_Home;
-import model.ModelLogin_User;
+import model.ModelLogin_Register;
 import model.ModelLogin_Login;
-import model.ModelLogin_Message;
+import model.Model_PenjualanItem;
 import net.miginfocom.swing.MigLayout;
-import org.jdesktop.animation.timing.Animator;
-import org.jdesktop.animation.timing.TimingTarget;
-import org.jdesktop.animation.timing.TimingTargetAdapter;
-import service.ServiceLogin_Mail;
+import org.jdesktop.animation.timing.*;
 import service.ServiceLogin_User;
 
 public class Main_Login extends javax.swing.JFrame {
@@ -36,6 +31,7 @@ public class Main_Login extends javax.swing.JFrame {
     private final double coverSize = 40;
     private final double loginSize = 60;
     private ServiceLogin_User service;
+    private final Connection conn = db_connection.connect();
 
     public Main_Login() {
         initComponents();
@@ -124,8 +120,29 @@ public class Main_Login extends javax.swing.JFrame {
         });
         
     }
+    
+    private void Id(){
+        ModelLogin_Login data = loginRegister.getDataLogin();
+        String user = data.getUsername();
+        String pass = data.getPassword();
+        String sql = "SELECT user_id from users WHERE username = '"+user+"' AND password = '"
+                + pass + "'";
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                int noAkun = rs.getInt("user_id");
+                PenggunaLogin.Login = noAkun;
+            }
+        } catch (SQLException e) {
+            showMessage(Message.Messagetype.ERROR, "Gagal Mengambil User_Id");
+        }
+    }
+    
+ 
+    
     private void register(){
-        ModelLogin_User user_id = loginRegister.getUser_id();
+        ModelLogin_Register user_id = loginRegister.getUser_id();
         loading.setVisible(true);
         try {
             if (service.checkDuplicateUser(user_id.getUsername())) {
@@ -156,7 +173,7 @@ public class Main_Login extends javax.swing.JFrame {
             showMessage(Message.Messagetype.ERROR, "Masukkan Username dan Password Anda");
             return;
         } 
-        ModelLogin_User user_id = service.login_User(data);
+        ModelLogin_Register user_id = service.login_User(data);
         if (user_id != null) {
             this.dispose(); // Tutup jendela Main_Login
             Main_Home main = new Main_Home(); // Membuat instance dari Main
@@ -168,6 +185,7 @@ public class Main_Login extends javax.swing.JFrame {
         System.err.println("Error during login cause: " + e.getMessage()); // Log for debugging
         showMessage(Message.Messagetype.ERROR, "Error saat masuk, coba lagi");
     }
+    
 }
 
 
@@ -235,7 +253,6 @@ public class Main_Login extends javax.swing.JFrame {
         bg = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -294,7 +311,7 @@ public class Main_Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         try {
-            db_connection.getInstance().connectDatabase();
+            db_connection.connect();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,7 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 
-public class mypass_field_login extends JPasswordField {
+public class TextField_pass extends JPasswordField {
 
     public String getHint() {
         return hint;
@@ -43,7 +43,7 @@ public class mypass_field_login extends JPasswordField {
     private Icon suffixIcon;
     private String hint = "";
 
-    public mypass_field_login() {
+    public TextField_pass() {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(new Color(0, 0, 0, 0));
         setForeground(Color.decode("#7A8C8D"));

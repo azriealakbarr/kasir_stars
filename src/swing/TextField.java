@@ -11,7 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
-public class mytext_field_login extends JTextField {
+public class TextField extends JTextField {
 
     public String getHint() {
         return hint;
@@ -43,7 +43,7 @@ public class mytext_field_login extends JTextField {
     private Icon suffixIcon;
     private String hint = "";
 
-    public mytext_field_login() {
+    public TextField() {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(new Color(0, 0, 0, 0));
         setForeground(Color.decode("#7A8C8D"));

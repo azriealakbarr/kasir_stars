@@ -1,22 +1,18 @@
 package service;
 
-import com.mysql.jdbc.Statement;
 import db.db_connection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import model.ModelLogin_User;
+import java.sql.*;
+import model.ModelLogin_Register;
 import model.ModelLogin_Login;
 
 public class ServiceLogin_User {
     private final Connection cnct;
     
     public ServiceLogin_User() {
-        cnct = db_connection.getInstance().getConnection();
+        cnct = db_connection.connect();
     }
-    public ModelLogin_User login_User(ModelLogin_Login login) throws SQLException {
-    ModelLogin_User data = null;
+    public ModelLogin_Register login_User(ModelLogin_Login login) throws SQLException {
+    ModelLogin_Register data = null;
 
     try (PreparedStatement p = cnct.prepareStatement("SELECT user_id, username, password FROM users WHERE BINARY(username) = ? AND BINARY(password) = ? LIMIT 1", Statement.RETURN_GENERATED_KEYS)) {
         p.setString(1, login.getUsername());
@@ -27,7 +23,7 @@ public class ServiceLogin_User {
                 int user_id = rs.getInt(1);
                 String username = rs.getString(2);
                 String password = rs.getString(3);
-                data = new ModelLogin_User(user_id, username, password);
+                data = new ModelLogin_Register(user_id, username, password);
             }
         }
     } catch (SQLException e) {
@@ -39,7 +35,7 @@ public class ServiceLogin_User {
     return data;
     }
 
-    public void insertUser(ModelLogin_User username) throws SQLException {
+    public void insertUser(ModelLogin_Register username) throws SQLException {
         PreparedStatement p = cnct.prepareStatement("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
         p.setString(1, username.getUsername());
         p.setString(2, username.getEmail());

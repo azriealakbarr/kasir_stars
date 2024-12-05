@@ -1,22 +1,19 @@
 package komponen;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
-import swing.mypass_field_login;
-import swing.mytext_field_login;
-import model.ModelLogin_User;
+import swing.TextField_pass;
+import swing.TextField;
+import model.ModelLogin_Register;
 import model.ModelLogin_Login;
 
 public class PanelLoginRegister extends javax.swing.JLayeredPane {
     
-    public ModelLogin_User getUser_id() {
+    public ModelLogin_Register getUser_id() {
         return user_id;
     }
     
@@ -24,7 +21,7 @@ public class PanelLoginRegister extends javax.swing.JLayeredPane {
         return dataLogin;
     }
     
-    private ModelLogin_User user_id;
+    private ModelLogin_Register user_id;
     private ModelLogin_Login dataLogin;
     
     public PanelLoginRegister(ActionListener eventRegister, ActionListener eventLogin) {
@@ -42,15 +39,15 @@ public class PanelLoginRegister extends javax.swing.JLayeredPane {
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(2, 23, 55));
         register.add(label);
-        mytext_field_login txtUser = new mytext_field_login();
+        TextField txtUser = new TextField();
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/user.png")));
         txtUser.setHint("Username");
         register.add(txtUser, "w 60%");
-        mytext_field_login txtEmail = new mytext_field_login();
+        TextField txtEmail = new TextField();
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/mail.png")));
         txtEmail.setHint("Email");
         register.add(txtEmail, "w 60%");
-        mypass_field_login txtPass = new mypass_field_login();
+        TextField_pass txtPass = new TextField_pass();
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/pass.png")));
         txtPass.setHint("Password");
         register.add(txtPass, "w 60%");
@@ -66,7 +63,7 @@ public class PanelLoginRegister extends javax.swing.JLayeredPane {
                 String username = txtUser.getText().trim();
                 String email = txtEmail.getText().trim();
                 String password = String.valueOf(txtPass.getPassword());
-                user_id = new ModelLogin_User(0, username, email, password);
+                user_id = new ModelLogin_Register(0, username, email, password);
             }
         });
     }
@@ -77,20 +74,14 @@ public class PanelLoginRegister extends javax.swing.JLayeredPane {
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(2, 23, 55));
         login.add(label);
-        mytext_field_login txtUser = new mytext_field_login();
+        TextField txtUser = new TextField();
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/user.png")));
         txtUser.setHint("Username");
         login.add(txtUser, "w 60%");
-        mypass_field_login txtPass = new mypass_field_login();
+        TextField_pass txtPass = new TextField_pass();
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/pass.png")));
         txtPass.setHint("Password");
         login.add(txtPass, "w 60%");
-        JButton cmdForget = new JButton("Forgot your password ?");
-        cmdForget.setForeground(new Color(100, 100, 100));
-        cmdForget.setFont(new Font("sansserif", 1, 12));
-        cmdForget.setContentAreaFilled(false);
-        cmdForget.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        login.add(cmdForget);
         JButton cmd = new JButton();
         cmd.setBackground(new Color(2, 23, 55));
         cmd.setForeground(new Color(255, 255, 255));

@@ -29,23 +29,18 @@ public class Menu extends javax.swing.JPanel {
     }
 
     private void init() {
-        listMenu.addItem(new Model_Menu("Dashboard",Model_Menu.MenuType.MENU));
+        listMenu.addItem(new Model_Menu("Dashboard", Model_Menu.MenuType.MENU));
         listMenu.addItem(new Model_Menu("Produk", Model_Menu.MenuType.MENU));
         listMenu.addItem(new Model_Menu("Penjualan", Model_Menu.MenuType.MENU));
         listMenu.addItem(new Model_Menu("Pembelian", Model_Menu.MenuType.MENU));
         listMenu.addItem(new Model_Menu("Laporan", Model_Menu.MenuType.MENU));
-        
+
         listMenu.addItem(new Model_Menu(" ", Model_Menu.MenuType.EMPTY));
         listMenu.addItem(new Model_Menu(" ", Model_Menu.MenuType.EMPTY));
-        listMenu.addItem(new Model_Menu(" ", Model_Menu.MenuType.EMPTY));
-        listMenu.addItem(new Model_Menu(" ", Model_Menu.MenuType.EMPTY));
-        
-        listMenu.addItem(new Model_Menu("Logout",  Model_Menu.MenuType.MENU));
-        listMenu.addItem(new Model_Menu(" ",  Model_Menu.MenuType.EMPTY));
+
+        listMenu.addItem(new Model_Menu("Logout", Model_Menu.MenuType.MENU));
     }
 
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

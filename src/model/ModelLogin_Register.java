@@ -1,10 +1,10 @@
 package model;
 
-public class ModelLogin_User {
+public class ModelLogin_Register {
 
-    public ModelLogin_User(){
-        
+    public ModelLogin_Register(){
     }
+    
     public int getUser_id() {
         return user_id;
     }
@@ -37,13 +37,13 @@ public class ModelLogin_User {
         this.password = password;
     }
 
-    public ModelLogin_User(int user_id, String username, String email, String password) {
+    public ModelLogin_Register(int user_id, String username, String email, String password) {
         this.user_id = user_id;
         this.username = username;
         this.email = email;
         this.password = password;
     }
-    public ModelLogin_User(int user_id, String username, String password) {
+    public ModelLogin_Register(int user_id, String username, String password) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
