@@ -1,6 +1,6 @@
 package form;
 
-import frame.tblpd;
+import frame.frameBeli;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
@@ -38,7 +38,7 @@ public class Form_Pembelian extends javax.swing.JPanel {
     }
 
     private void AmbilDataProduk() {
-        tblpd produk = new tblpd();
+        frameBeli produk = new frameBeli();
         produk.setVisible(true);
 
         produk.addWindowListener(new WindowAdapter() {

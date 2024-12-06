@@ -7,15 +7,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class tblpd extends javax.swing.JFrame {
+public class frameBeli extends javax.swing.JFrame {
 
     private DefaultTableModel model;
     private Connection conn = db_connection.connect();
 
-    ; 
-
-
-    public tblpd() {
+    public frameBeli() {
         initComponents();
 
         ambilProduk();
@@ -51,7 +48,7 @@ public class tblpd extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Kode Produk", "Nama Produk", "Harga Beli"
+                "ID Produk", "Kode Produk", "Nama Produk", "Harga Beli"
             }
         ));
         jScrollPane2.setViewportView(tabelpd);
@@ -95,13 +92,14 @@ public class tblpd extends javax.swing.JFrame {
         }
             }//GEN-LAST:event_btn_okActionPerformed
     public void ambilProduk() {
-        model = new DefaultTableModel(new Object[]{"Kode Produk", "Nama Produk", "Harga Beli"}, 0);
+        model = new DefaultTableModel(new Object[]{"ID Produk", "Kode Produk", "Nama Produk", "Harga Beli"}, 0);
         tabelpd.setModel(model);
 
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM produk")) {
 
             while (rs.next()) {
                 Object[] row = {
+                    rs.getString("product_id"),
                     rs.getString("product_code"),
                     rs.getString("product_name"),
                     rs.getDouble("price_purchase")
@@ -119,10 +117,11 @@ public class tblpd extends javax.swing.JFrame {
         List<String[]> dataTerpilih = new ArrayList<>();
         int[] selectedRows = tabelpd.getSelectedRows();
         for (int row : selectedRows) {
-            String[] data = new String[3];
+            String[] data = new String[4];
             data[0] = model.getValueAt(row, 0).toString();
             data[1] = model.getValueAt(row, 1).toString();
             data[2] = model.getValueAt(row, 2).toString();
+            data[3] = model.getValueAt(row, 3).toString();
             dataTerpilih.add(data);
         }
         return dataTerpilih;
@@ -137,11 +136,11 @@ public class tblpd extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tblpd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frameBeli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            new tblpd().setVisible(true);
+            new frameBeli().setVisible(true);
         });
     }
 

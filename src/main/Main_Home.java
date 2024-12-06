@@ -44,7 +44,7 @@ public class Main_Home extends javax.swing.JFrame {
                     headerHome.setMenuName("  Pembelian");
                 } else if (index == 4) {
                     setForm(formLp);
-                    headerHome.setMenuName("  Laporan");
+                    headerHome.setMenuName("  Riwayat Transaksi");
                 } else if (index == 7) { // Ubah angka 7 sesuai dengan indeks menu logout yang muncul
                     int confirm = javax.swing.JOptionPane.showConfirmDialog(
                             Main_Home.this,

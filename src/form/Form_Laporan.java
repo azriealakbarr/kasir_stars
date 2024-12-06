@@ -1,13 +1,31 @@
 package form;
 
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Form_Laporan extends javax.swing.JPanel {
 
+    private final Connection conn = db.db_connection.connect();
+
     public Form_Laporan() {
         initComponents();
         initListeners();
+        DefaultTableModel modelPb = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Product ID", "Product Code", "Product Name", "Purchase Date", "Quantity", "Total Price", "Supplier"}
+        );
+        tblPb.setModel(modelPb);
+
+        DefaultTableModel modelPj = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Product ID", "Product Code", "Product Name", "Sales Date", "Quantity", "Total Price"}
+        );
+        tblPj.setModel(modelPj);
+
     }
 
     // Metode untuk menambahkan listener ke tombol pilih
@@ -20,18 +38,18 @@ public class Form_Laporan extends javax.swing.JPanel {
         String selectedReport = (String) cbLaporan.getSelectedItem();
 
         // Sembunyikan semua panel terlebih dahulu
-        lapPn.setVisible(false);
+        lapPb.setVisible(false);
         lapPj.setVisible(false);
 
         switch (selectedReport) {
-            case "Laporan Penjualan":
+            case "Transaksi Penjualan":
                 loadLaporanPenjualan();
                 lapPj.setVisible(true);
                 break;
 
-            case "Laporan Pembelian":
+            case "Transaksi Pembelian":
                 loadLaporanPembelian();
-                lapPn.setVisible(true);
+                lapPb.setVisible(true);
                 break;
 
             default:
@@ -44,32 +62,53 @@ public class Form_Laporan extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblPj.getModel();
         model.setRowCount(0); // Hapus data lama
 
-        // Tambahkan data dummy
-        Object[][] dataPenjualan = {
-            {"PJ001", "SN001", "2024-01-01", 10, 50000, "Supplier A"},
-            {"PJ002", "SN002", "2024-01-02", 20, 100000, "Supplier B"},
-            {"PJ003", "SN003", "2024-01-03", 15, 75000, "Supplier C"}
-        };
+        String query = "SELECT sales.product_id, produk.product_code, produk.product_name, sales.sales_date, sales.quantity, sales.total_price "
+                + "FROM sales "
+                + "INNER JOIN produk ON sales.product_id = produk.product_id";
 
-        for (Object[] row : dataPenjualan) {
-            model.addRow(row);
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("product_id"),
+                    rs.getString("product_code"),
+                    rs.getString("product_name"),
+                    rs.getDate("sales_date"),
+                    rs.getInt("quantity"),
+                    rs.getDouble("total_price")
+                };
+                model.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading sales data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     // Metode untuk memuat data laporan pembelian (data dummy)
     private void loadLaporanPembelian() {
-        DefaultTableModel model = (DefaultTableModel) tblPn.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblPb.getModel();
         model.setRowCount(0); // Hapus data lama
 
-        // Tambahkan data dummy
-        Object[][] dataPembelian = {
-            {"PB001", "SN001", 30, "2024-01-01", 150000},
-            {"PB002", "SN002", 25, "2024-01-02", 125000},
-            {"PB003", "SN003", 40, "2024-01-03", 200000}
-        };
+        String query = "SELECT pembelian.product_id, produk.product_code, produk.product_name, pembelian.purchase_date, pembelian.quantity, pembelian.total_price, pembelian.supplier "
+                + "FROM pembelian "
+                + "INNER JOIN produk ON pembelian.product_id = produk.product_id";
 
-        for (Object[] row : dataPembelian) {
-            model.addRow(row);
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("product_id"),
+                    rs.getString("product_code"),
+                    rs.getString("product_name"),
+                    rs.getDate("purchase_date"),
+                    rs.getInt("quantity"),
+                    rs.getDouble("total_price"),
+                    rs.getString("supplier")
+                };
+                model.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading purchase data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -79,9 +118,9 @@ public class Form_Laporan extends javax.swing.JPanel {
 
         pnLaporan = new javax.swing.JPanel();
         pnTampil = new javax.swing.JPanel();
-        lapPn = new javax.swing.JPanel();
+        lapPb = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblPn = new javax.swing.JTable();
+        tblPb = new javax.swing.JTable();
         lapPj = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPj = new javax.swing.JTable();
@@ -97,39 +136,39 @@ public class Form_Laporan extends javax.swing.JPanel {
         pnTampil.setBackground(new java.awt.Color(255, 255, 255));
         pnTampil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lapPn.setBackground(new java.awt.Color(237, 237, 237));
+        lapPb.setBackground(new java.awt.Color(237, 237, 237));
 
-        tblPn.setModel(new javax.swing.table.DefaultTableModel(
+        tblPb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Transaksi", "Kode Barang", "Jumlah", "Tanggal", "Total Harga"
+                "Product ID", "Kode Barang", "Nama Barang", "Jumlah", "Total Harga", "Supplier", "Tanggal"
             }
         ));
-        jScrollPane2.setViewportView(tblPn);
+        jScrollPane2.setViewportView(tblPb);
 
-        javax.swing.GroupLayout lapPnLayout = new javax.swing.GroupLayout(lapPn);
-        lapPn.setLayout(lapPnLayout);
-        lapPnLayout.setHorizontalGroup(
-            lapPnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lapPnLayout.createSequentialGroup()
+        javax.swing.GroupLayout lapPbLayout = new javax.swing.GroupLayout(lapPb);
+        lapPb.setLayout(lapPbLayout);
+        lapPbLayout.setHorizontalGroup(
+            lapPbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lapPbLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        lapPnLayout.setVerticalGroup(
-            lapPnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lapPnLayout.createSequentialGroup()
+        lapPbLayout.setVerticalGroup(
+            lapPbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lapPbLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        pnTampil.add(lapPn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 106, -1, 430));
+        pnTampil.add(lapPb, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 106, -1, 430));
 
         lapPj.setBackground(new java.awt.Color(237, 237, 237));
 
@@ -141,7 +180,7 @@ public class Form_Laporan extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Transaksi", "Kode Barang", "Tanggal", "Jumlah", "Total Harga", "Supplier"
+                "Product ID", "Kode Barang", "Nama Barang", "Jumlah", "Total Harga", "Tanggal"
             }
         ));
         jScrollPane1.setViewportView(tblPj);
@@ -169,11 +208,11 @@ public class Form_Laporan extends javax.swing.JPanel {
         btnPilih.setText("Pilih");
         pnTampil.add(btnPilih, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 70, 30));
 
-        cbLaporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "== Pilih Jenis Laporan ==", "Laporan Penjualan", "Laporan Pembelian" }));
+        cbLaporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "== Pilih Jenis Riwayat ==", "Transaksi Penjualan", "Transaksi Pembelian" }));
         pnTampil.add(cbLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 193, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel1.setText("Pilih Jenis Laporan :");
+        jLabel1.setText("Pilih Jenis Transaksi :");
         pnTampil.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 30));
 
         javax.swing.GroupLayout pnLaporanLayout = new javax.swing.GroupLayout(pnLaporan);
@@ -198,7 +237,7 @@ public class Form_Laporan extends javax.swing.JPanel {
             .addComponent(pnLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
- 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.Button btnPilih;
@@ -206,11 +245,11 @@ public class Form_Laporan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel lapPb;
     private javax.swing.JPanel lapPj;
-    private javax.swing.JPanel lapPn;
     private javax.swing.JPanel pnLaporan;
     private javax.swing.JPanel pnTampil;
+    private javax.swing.JTable tblPb;
     private javax.swing.JTable tblPj;
-    private javax.swing.JTable tblPn;
     // End of variables declaration//GEN-END:variables
 }

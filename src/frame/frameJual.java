@@ -21,15 +21,16 @@ private Connection conn = db_connection.connect();
     }
 
     public void ambilProduk() {
-        model = new DefaultTableModel(new Object[]{"Kode Produk", "Nama Produk", "Harga"},0);
+        model = new DefaultTableModel(new Object[]{"ID Produk", "Nama Produk", "Harga","Kode Produk"},0);
         tbl_produk.setModel(model);
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM produk")) {
 
             while (rs.next()) {
                 Object[] row = {
-                    rs.getString("product_code"),
+                    rs.getString("product_id"),
                     rs.getString("product_name"),
-                    rs.getDouble("price_sales")
+                    rs.getDouble("price_sales"),
+                    rs.getString("product_code")
                 };
                 model.addRow(row);
             }
@@ -45,10 +46,11 @@ private Connection conn = db_connection.connect();
         int[] selectedRows = tbl_produk.getSelectedRows();
         
         for (int row : selectedRows){
-            String[] data = new String[3];
+            String[] data = new String[4];
             data[0] = model.getValueAt(row, 0).toString();
             data[1] = model.getValueAt(row, 1).toString();
             data[2] = model.getValueAt(row, 2).toString();
+            data[3] = model.getValueAt(row, 3).toString();
             dataTerpilih.add(data);
         }
         return dataTerpilih;
@@ -69,7 +71,7 @@ private Connection conn = db_connection.connect();
 
             },
             new String [] {
-                "Kode", "Nama", "Harga"
+                "ID Produk", "Kode", "Nama", "Harga"
             }
         ));
         jScrollPane1.setViewportView(tbl_produk);

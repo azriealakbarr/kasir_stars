@@ -22,10 +22,14 @@ public class Form_Penjualan extends javax.swing.JPanel {
 
     public void clearForm() {
         kodeT.setText("");
-        kodeP.setText("");
+        idP.setText("");
         namaP.setText("");
         hargaP.setText("");
         jmlP.setText("");
+        tf_Bayar.setText("");
+        tf_Kembali.setText("");
+        ttl_Bayar.setText("");
+        kodeP.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -33,7 +37,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
     private void initComponents() {
 
         kodeT = new swing.TextField();
-        kodeP = new swing.TextField();
+        idP = new swing.TextField();
         namaP = new swing.TextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +59,8 @@ public class Form_Penjualan extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         btnPanggil = new swing.Button();
         cbDate = new datechooser.beans.DateChooserCombo();
+        kodeP = new swing.TextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -65,7 +71,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
             }
         });
 
-        kodeP.setHint("MA010001");
+        idP.setHint("10");
 
         namaP.setHint("CHITATO");
 
@@ -76,7 +82,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
         jLabel1.setPreferredSize(new java.awt.Dimension(45, 16));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Kode Produk");
+        jLabel2.setText("ID Produk");
         jLabel2.setMaximumSize(new java.awt.Dimension(45, 16));
         jLabel2.setMinimumSize(new java.awt.Dimension(45, 16));
         jLabel2.setPreferredSize(new java.awt.Dimension(45, 16));
@@ -116,7 +122,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID Transaksi", "Tanggal", "Kode Produk", "Nama Produk", "Jumlah", "Harga"
+                "ID Transaksi", "Tanggal", "ID Produk", "Kode Produk", "Nama Produk", "Jumlah", "Harga"
             }
         ));
         jScrollPane1.setViewportView(tblJual);
@@ -170,6 +176,14 @@ public class Form_Penjualan extends javax.swing.JPanel {
             }
         });
 
+        kodeP.setHint("MA010001");
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel9.setText("Kode Produk");
+        jLabel9.setMaximumSize(new java.awt.Dimension(45, 16));
+        jLabel9.setMinimumSize(new java.awt.Dimension(45, 16));
+        jLabel9.setPreferredSize(new java.awt.Dimension(45, 16));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,10 +233,14 @@ public class Form_Penjualan extends javax.swing.JPanel {
                                             .addComponent(kodeT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(0, 0, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(kodeP, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(idP, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(btnPanggil, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(kodeP, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(62, 62, 62)
                                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(33, 33, 33)
                                             .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -239,11 +257,15 @@ public class Form_Penjualan extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(kodeP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(btnPanggil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(kodeP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(idP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(btnPanggil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -279,26 +301,23 @@ public class Form_Penjualan extends javax.swing.JPanel {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         String idTransaksi = kodeT.getText();
-        String kodeProduk = kodeP.getText();
+        String kodePr = idP.getText();
+        Integer productId = Integer.parseInt(kodePr);
+        String kProgram = kodeP.getText();
         String namaProduk = namaP.getText();
         String jmlh = jmlP.getText();
-        int jumlah = Integer.parseInt(jmlh);
         String harga = hargaP.getText();
+
+        // Validasi input jumlah dan harga
+        if (jmlh.isEmpty() || harga.isEmpty() || !jmlh.matches("\\d+") || !harga.matches("\\d+(\\.\\d+)?")) {
+            JOptionPane.showMessageDialog(this, "Input jumlah atau harga tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int jumlah = Integer.parseInt(jmlh);
         double hrg = Double.parseDouble(harga);
         double total = hrg * jumlah;
         String tanggal = cbDate.getText();
-        int productId = 0;
-        try {
-            String sqlSelect = "SELECT product_id FROM produk ORDER BY product_id LIMIT 1";
-            PreparedStatement pstSelect = conn.prepareStatement(sqlSelect);
-            ResultSet rs = pstSelect.executeQuery();
-            if (rs.next()) {
-                productId = rs.getInt("product_id");
-            }
-            System.out.println("Product ID: " + productId); // Debug: Tampilkan product_id untuk memastikan
-        } catch (SQLException e) {
-            e.printStackTrace(); // Debug jika ada error
-        }
 
         try {
             // Mulai transaksi
@@ -343,10 +362,10 @@ public class Form_Penjualan extends javax.swing.JPanel {
             }
         }
 
-        if (!kodeP.getText().isEmpty() && !namaP.getText().isEmpty() && !jmlP.getText().isEmpty() && !hargaP.getText().isEmpty()) {
+        if (!idP.getText().isEmpty() && !kodeP.getText().isEmpty() && !namaP.getText().isEmpty() && !jmlP.getText().isEmpty() && !hargaP.getText().isEmpty()) {
             // Menambahkan data ke table jika form valid
             model = (DefaultTableModel) tblJual.getModel();
-            model.addRow(new Object[]{idTransaksi, tanggal, kodeProduk, namaProduk, jumlah, harga});
+            model.addRow(new Object[]{idTransaksi, tanggal, productId, kProgram, namaProduk, jumlah, harga});
             clearForm();
         } else {
             JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -366,6 +385,8 @@ public class Form_Penjualan extends javax.swing.JPanel {
 
             // Tampilkan kembalian di tf_Kembali
             tf_Kembali.setText(String.valueOf(kembalian));
+            clearForm();
+            model.setRowCount(0);
 
             // Jika kembalian negatif, tampilkan pesan kesalahan
             if (kembalian < 0) {
@@ -378,36 +399,33 @@ public class Form_Penjualan extends javax.swing.JPanel {
             // Tangani kesalahan konversi jika diperlukan
             JOptionPane.showMessageDialog(this, "Format jumlah bayar tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_btnBayarActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblJual.getModel();
+        model = (DefaultTableModel) tblJual.getModel();
         double totalBayar = 0;
 
-        // Iterasi melalui semua baris di tabel
         for (int i = 0; i < model.getRowCount(); i++) {
-            // Ambil nilai dari kolom "Jumlah" dan "Harga"
-            Object jumlahObj = model.getValueAt(i, 4); // Kolom 4 adalah "Jumlah"
-            Object hargaObj = model.getValueAt(i, 5); // Kolom 5 adalah "Harga"
+            Object jumlahObj = model.getValueAt(i, 5);
+            Object hargaObj = model.getValueAt(i, 6);
 
-            // Pastikan nilai tidak null sebelum mengonversi
-            if (jumlahObj != null && hargaObj != null) {
-                try {
-                    int jumlah = Integer.parseInt(jumlahObj.toString());
-                    double harga = Double.parseDouble(hargaObj.toString());
+            if (jumlahObj == null || hargaObj == null || jumlahObj.toString().isEmpty() || hargaObj.toString().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Jumlah atau harga kosong di baris " + (i + 1), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-                    // Hitung total untuk baris ini
-                    totalBayar += jumlah * harga;
-                } catch (NumberFormatException e) {
-                    // Tangani kesalahan konversi jika diperlukan
-                    JOptionPane.showMessageDialog(this, "Format jumlah atau harga tidak valid di baris " + (i + 1), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            try {
+                int jumlah = Integer.parseInt(jumlahObj.toString());
+                double harga = Double.parseDouble(hargaObj.toString());
+                totalBayar += jumlah * harga;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Format jumlah atau harga tidak valid di baris " + (i + 1), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
 
-        // Tampilkan total di text field ttl_Bayar
         ttl_Bayar.setText(String.valueOf(totalBayar));
-
     }//GEN-LAST:event_btnSimpanActionPerformed
     private void ambilData() {
         frameJual getProduk = new frameJual();
@@ -418,17 +436,18 @@ public class Form_Penjualan extends javax.swing.JPanel {
                 List<String[]> dataTerpilihList = getProduk.getselectedDataProduk();
                 if (!dataTerpilihList.isEmpty()) {
                     for (String[] data : dataTerpilihList) {
-                        kodeP.setText(data[0]);
-                        namaP.setText(data[1]);
-                        hargaP.setText(data[2]);
+                        idP.setText(data[0]);  // ID produk yang dipilih
+                        namaP.setText(data[1]);  // Nama produk yang dipilih
+                        hargaP.setText(data[2]); // Harga produk yang dipilih
+                        kodeP.setText(data[3]);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Input kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
-
     }
+
     private void btnPanggilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanggilActionPerformed
         ambilData();
     }//GEN-LAST:event_btnPanggilActionPerformed
@@ -441,6 +460,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
     private swing.Button btnTambah;
     private datechooser.beans.DateChooserCombo cbDate;
     private swing.TextField hargaP;
+    private swing.TextField idP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -449,6 +469,7 @@ public class Form_Penjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private swing.TextField jmlP;
     private swing.TextField kodeP;
